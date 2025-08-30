@@ -7,8 +7,8 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { Rocket } from 'lucide-react';
 
 const sentences = [
-    "Hello, I’m Hari Krishna".split(""),
-    "Dive into my Universe".split("")
+    "Hello, I’m Hari Krishna",
+    "Dive into my Universe"
 ];
 
 export default function WelcomePage() {
@@ -33,27 +33,10 @@ export default function WelcomePage() {
         };
     }, [router]);
 
-    const containerVariants = {
-        hidden: { opacity: 0 },
-        visible: {
-            opacity: 1,
-            transition: {
-                staggerChildren: 0.08,
-            },
-        },
-    };
-
-    const letterVariants = {
+    const sentenceVariants = {
         hidden: { opacity: 0, y: 20 },
-        visible: {
-            opacity: 1,
-            y: 0,
-            transition: {
-                type: 'spring',
-                damping: 12,
-                stiffness: 200,
-            },
-        },
+        visible: { opacity: 1, y: 0, transition: { duration: 0.5, ease: 'easeOut' } },
+        exit: { opacity: 0, y: -20, transition: { duration: 0.3, ease: 'easeIn' } }
     };
     
     return (
@@ -76,7 +59,7 @@ export default function WelcomePage() {
                                         opacity: 0,
                                     }}
                                     animate={{
-                                        scale: [0, size, 0],
+                                        scale: [0, 1, 0],
                                         opacity: [0, 1, 0],
                                     }}
                                     transition={{
@@ -115,16 +98,12 @@ export default function WelcomePage() {
                             <motion.h1
                                 key={sentenceIndex}
                                 className="text-4xl md:text-5xl font-bold text-center text-transparent bg-clip-text bg-gradient-to-r from-accent via-primary to-accent animate-text-glow"
-                                variants={containerVariants}
+                                variants={sentenceVariants}
                                 initial="hidden"
                                 animate="visible"
-                                exit={{ opacity: 0, y: -20, transition: { duration: 0.3 } }}
+                                exit="exit"
                             >
-                                {sentences[sentenceIndex].map((char, index) => (
-                                    <motion.span key={index} variants={letterVariants}>
-                                        {char === " " ? "\u00A0" : char}
-                                    </motion.span>
-                                ))}
+                                {sentences[sentenceIndex]}
                             </motion.h1>
                         </AnimatePresence>
 
