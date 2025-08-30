@@ -165,7 +165,7 @@ export default function VisitorPage() {
                             className="w-full"
                         >
                             <Button type="submit" size="lg" className="w-full btn-glow animate-pulse-glow-accent text-lg focus-visible:ring-0 focus-visible:ring-offset-0" disabled={isSubmitting}>
-                                {isSubmitting ? <Loader2 className="mr-2 h-5 w-5 animate-spin" /> : 'Dive into my Universe'}
+                                {isSubmitting ? <Loader2 className="mr-2 h-5 w-5 animate-spin" /> : 'Let’s Go!'}
                             </Button>
                         </motion.div>
                     </motion.form>
