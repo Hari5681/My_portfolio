@@ -129,7 +129,7 @@ export default function VisitorPage() {
                     style={{ transformStyle: "preserve-d" }}
                 >
                     <motion.div
-                        className="w-32 h-32 mx-auto mb-6 flex items-center justify-center"
+                        className="w-40 h-40 mx-auto mb-6 flex items-center justify-center"
                         style={{ transform: "translateZ(80px)" }}
                         variants={itemVariants}
                         animate={{ y: [0, -10, 0] }}
@@ -138,8 +138,8 @@ export default function VisitorPage() {
                         <Image
                             src="https://evfbzgcwjfvkxukdxckj.supabase.co/storage/v1/object/public/hari_portfolio_imAGES/Cat%20playing%20animation.gif"
                             alt="Cat playing animation gif"
-                            width={128}
-                            height={128}
+                            width={160}
+                            height={160}
                             unoptimized
                             className="object-contain w-full h-full"
                         />
@@ -163,8 +163,8 @@ export default function VisitorPage() {
                     <motion.form 
                         onSubmit={handleSubmit} 
                         className="mt-8 space-y-6 flex flex-col items-center"
-                        variants={itemVariants}
                         style={{ transform: "translateZ(40px)" }}
+                        variants={itemVariants}
                     >
                         <motion.div className="relative w-full group" whileHover={{ scale: 1.03 }} transition={{ type: 'spring', stiffness: 300 }}>
                             <Input
