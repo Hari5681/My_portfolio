@@ -12,9 +12,9 @@ export const metadata: Metadata = {
   title: "Hari Krishna's Portfolio",
   description: "Welcome to my personal portfolio. Explore my projects, skills, and experiences in web development and AI.",
   icons: {
-    icon: "/images/fovcon.png?v=2",
-    shortcut: "/images/fovcon.png?v=2",
-    apple: "/images/fovcon.png?v=2",
+    icon: "https://evfbzgcwjfvkxukdxckj.supabase.co/storage/v1/object/public/hari_portfolio_imAGES/80305cac-f2ff-49d7-8d71-8249acd896ae.jpeg",
+    shortcut: "https://evfbzgcwjfvkxukdxckj.supabase.co/storage/v1/object/public/hari_portfolio_imAGES/80305cac-f2ff-49d7-8d71-8249acd896ae.jpeg",
+    apple: "https://evfbzgcwjfvkxukdxckj.supabase.co/storage/v1/object/public/hari_portfolio_imAGES/80305cac-f2ff-49d7-8d71-8249acd896ae.jpeg",
   },
   openGraph: {
     title: "Hari Krishna's Portfolio",
