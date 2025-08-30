@@ -151,7 +151,7 @@ export default function VisitorPage() {
                         <motion.div className="relative w-full group" whileHover={{ scale: 1.03 }} transition={{ type: 'spring', stiffness: 300 }}>
                             <Input
                                 id="visitor-name"
-                                placeholder="What should I call you? (Optional)"
+                                placeholder="What should I call you?"
                                 value={name}
                                 onChange={(e) => setName(e.target.value)}
                                 className="h-12 text-base text-center bg-background/50 border-accent/30 placeholder:text-muted-foreground rounded-lg transition-all duration-300 focus:border-accent focus:shadow-lg focus:shadow-accent/20 input-glow-border"

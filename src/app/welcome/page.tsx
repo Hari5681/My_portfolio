@@ -51,30 +51,35 @@ export default function WelcomePage() {
                 {isMounted && (
                     <>
                         {/* Starfield background */}
-                        {[...Array(50)].map((_, i) => (
-                            <motion.div
-                                key={i}
-                                className="absolute rounded-full bg-accent"
-                                initial={{
-                                    x: Math.random() * window.innerWidth,
-                                    y: Math.random() * window.innerHeight,
-                                    scale: 0,
-                                }}
-                                animate={{
-                                    scale: Math.random() * 1.5,
-                                    opacity: [0, 1, 0],
-                                }}
-                                transition={{
-                                    duration: Math.random() * 2 + 2,
-                                    repeat: Infinity,
-                                    delay: Math.random() * 3,
-                                }}
-                                style={{
-                                    width: 3,
-                                    height: 3,
-                                }}
-                            />
-                        ))}
+                        {[...Array(100)].map((_, i) => {
+                            const size = Math.random() * 2 + 1;
+                            const duration = Math.random() * 3 + 2;
+                            return (
+                                <motion.div
+                                    key={i}
+                                    className="absolute rounded-full bg-accent"
+                                    initial={{
+                                        x: Math.random() * window.innerWidth,
+                                        y: Math.random() * window.innerHeight,
+                                        scale: 0,
+                                        opacity: 0,
+                                    }}
+                                    animate={{
+                                        scale: [0, size, 0],
+                                        opacity: [0, 1, 0],
+                                    }}
+                                    transition={{
+                                        duration: duration,
+                                        repeat: Infinity,
+                                        delay: Math.random() * 5,
+                                    }}
+                                    style={{
+                                        width: size,
+                                        height: size,
+                                    }}
+                                />
+                            );
+                        })}
                         
                         <motion.div
                             initial={{ scale: 0, opacity: 0, rotate: -180 }}
@@ -114,12 +119,17 @@ export default function WelcomePage() {
                             animate={{ opacity: 1 }}
                             transition={{ delay: 2, duration: 0.5 }}
                          >
-                            <div className="h-2 bg-accent/20 rounded-full overflow-hidden">
+                            <div className="h-2 bg-accent/20 rounded-full overflow-hidden relative">
                                 <motion.div
                                     className="h-full bg-accent"
                                     initial={{ width: '0%' }}
                                     animate={{ width: '100%' }}
                                     transition={{ duration: 4, ease: 'linear' }}
+                                />
+                                <motion.div
+                                    className="absolute top-0 left-0 h-full w-full bg-accent opacity-50"
+                                    animate={{ scaleX: [1, 1.05, 1] }}
+                                    transition={{ duration: 1, repeat: Infinity, repeatType: "mirror" }}
                                 />
                             </div>
                         </motion.div>
