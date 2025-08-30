@@ -154,7 +154,7 @@ export default function VisitorPage() {
                                 placeholder="What should I call you?"
                                 value={name}
                                 onChange={(e) => setName(e.target.value)}
-                                className="h-12 text-base text-center bg-background/50 border-accent/30 placeholder:text-muted-foreground rounded-lg transition-all duration-300 focus:border-accent focus:shadow-lg focus:shadow-accent/20 input-glow-border"
+                                className="h-12 text-base text-center bg-background/50 border-accent/30 placeholder:text-muted-foreground rounded-lg transition-all duration-300 focus:border-accent focus:shadow-lg focus:shadow-accent/20 input-glow-border focus-visible:ring-0 focus-visible:ring-offset-0"
                                 autoComplete="name"
                                 disabled={isSubmitting}
                             />
@@ -164,7 +164,7 @@ export default function VisitorPage() {
                             whileTap={{ scale: 0.95 }}
                             className="w-full"
                         >
-                            <Button type="submit" size="lg" className="w-full btn-glow animate-pulse-glow-accent text-lg" disabled={isSubmitting}>
+                            <Button type="submit" size="lg" className="w-full btn-glow animate-pulse-glow-accent text-lg focus-visible:ring-0 focus-visible:ring-offset-0" disabled={isSubmitting}>
                                 {isSubmitting ? <Loader2 className="mr-2 h-5 w-5 animate-spin" /> : 'Dive into my Universe'}
                             </Button>
                         </motion.div>
