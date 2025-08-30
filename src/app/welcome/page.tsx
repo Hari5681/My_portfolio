@@ -51,21 +51,20 @@ export default function WelcomePage() {
             opacity: 1,
             transition: {
                 delay: 0.1,
-                staggerChildren: 0.05,
+                staggerChildren: 0.08, // Stagger words
             },
         },
         exit: { opacity: 0, transition: { duration: 0.3, ease: 'easeIn' } }
     };
 
-    const letterVariants = {
+    const wordVariants = {
         hidden: { opacity: 0, y: 20 },
         visible: {
             opacity: 1,
             y: 0,
             transition: {
-                type: 'spring',
-                damping: 12,
-                stiffness: 200,
+                duration: 0.5,
+                ease: 'easeOut'
             },
         },
     };
@@ -134,9 +133,9 @@ export default function WelcomePage() {
                                 animate="visible"
                                 exit="exit"
                             >
-                                {sentences[sentenceIndex].split("").map((char, index) => (
-                                    <motion.span key={index} variants={letterVariants} className="inline-block">
-                                        {char === " " ? "\u00A0" : char}
+                                {sentences[sentenceIndex].split(" ").map((word, index) => (
+                                    <motion.span key={index} variants={wordVariants} className="inline-block mr-[0.25em]">
+                                        {word}
                                     </motion.span>
                                 ))}
                             </motion.h1>
