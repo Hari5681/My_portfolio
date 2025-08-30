@@ -155,7 +155,7 @@ export default function VisitorPage() {
                     </div>
 
                     <motion.div
-                        className="w-24 h-24 mx-auto mb-6 rounded-full flex items-center justify-center bg-background/50 border-2 border-accent/30 shadow-lg shadow-accent/10 overflow-hidden"
+                        className="w-24 h-24 mx-auto mb-6 flex items-center justify-center"
                         style={{ transform: "translateZ(80px)" }}
                         variants={itemVariants}
                         animate={{ y: [0, -10, 0] }}
@@ -167,7 +167,7 @@ export default function VisitorPage() {
                             width={96}
                             height={96}
                             unoptimized
-                            className="object-cover"
+                            className="object-contain"
                         />
                     </motion.div>
                     
