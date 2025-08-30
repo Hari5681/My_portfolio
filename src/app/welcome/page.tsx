@@ -12,7 +12,7 @@ export default function WelcomePage() {
     const [isMounted, setIsMounted] = useState(false);
     const [activeStep, setActiveStep] = useState(0);
     const [sentences, setSentences] = useState<string[]>([]);
-    const totalDuration = 6000; // 6 seconds total
+    const totalDuration = 5500; // 5.5 seconds total
 
     useEffect(() => {
         setIsMounted(true);
@@ -59,57 +59,58 @@ export default function WelcomePage() {
                         animate={{ opacity: 1 }}
                         transition={{ duration: 0.5 }}
                     >
-                        <div className="relative">
-                            {/* The timeline line */}
-                            <div className="absolute left-4 top-0 h-full w-0.5 bg-accent/20 -translate-x-1/2">
-                                <motion.div
-                                    className="h-full w-full bg-accent"
-                                    style={{ originY: 0 }}
-                                    animate={{ scaleY: (activeStep / sentences.length) }}
-                                    transition={{ duration: 1.5, ease: 'easeOut' }}
-                                />
-                            </div>
-
-                            <div className="space-y-16">
-                                {sentences.map((sentence, index) => (
-                                    <div key={index} className="relative flex items-center">
-                                        <div 
-                                            className={cn(
-                                                "absolute left-4 -translate-x-1/2 w-8 h-8 rounded-full border-2 flex items-center justify-center transition-all duration-500",
-                                                activeStep > index ? "bg-accent border-accent" : "bg-background border-accent/30"
-                                            )}
-                                        >
-                                            {activeStep > index && (
-                                                <motion.div
-                                                    initial={{ scale: 0 }}
-                                                    animate={{ scale: 1 }}
-                                                >
-                                                    <Check className="w-5 h-5 text-accent-foreground" />
-                                                </motion.div>
-                                            )}
-                                             {activeStep === index + 1 && (
-                                                <div className="absolute inset-0 rounded-full bg-accent animate-ping"/>
-                                             )}
-                                        </div>
-                                        <div className="pl-12">
-                                            <AnimatePresence>
-                                            {activeStep > index && (
-                                                <motion.h1
-                                                    className="text-3xl md:text-4xl font-bold text-foreground"
-                                                    initial={{ opacity: 0, x: -20 }}
-                                                    animate={{ opacity: 1, x: 0 }}
-                                                    exit={{ opacity: 0 }}
-                                                    transition={{ type: 'spring', stiffness: 100, damping: 20 }}
-                                                >
-                                                    {sentence}
-                                                </motion.h1>
-                                            )}
-                                            </AnimatePresence>
-                                        </div>
+                        <div className="space-y-8">
+                            {sentences.map((sentence, index) => (
+                                <div key={index} className="flex items-center gap-4">
+                                    <div 
+                                        className={cn(
+                                            "w-10 h-10 rounded-full border-2 flex items-center justify-center transition-all duration-500",
+                                            activeStep > index ? "bg-accent border-accent" : "bg-transparent border-accent/30"
+                                        )}
+                                    >
+                                        <AnimatePresence>
+                                        {activeStep > index && (
+                                            <motion.div
+                                                initial={{ scale: 0, rotate: -90 }}
+                                                animate={{ scale: 1, rotate: 0 }}
+                                                transition={{ type: 'spring', stiffness: 300, damping: 20 }}
+                                            >
+                                                <Check className="w-6 h-6 text-accent-foreground" />
+                                            </motion.div>
+                                        )}
+                                        </AnimatePresence>
+                                         {activeStep === index + 1 && (
+                                            <div className="absolute w-10 h-10 rounded-full bg-accent animate-ping"/>
+                                         )}
                                     </div>
-                                ))}
-                            </div>
+                                    <div className="overflow-hidden">
+                                        <AnimatePresence>
+                                        {activeStep > index && (
+                                            <motion.h1
+                                                className="text-2xl md:text-3xl font-bold text-foreground"
+                                                initial={{ opacity: 0, y: 20 }}
+                                                animate={{ opacity: 1, y: 0 }}
+                                                exit={{ opacity: 0, y: -20 }}
+                                                transition={{ duration: 0.4, ease: 'easeOut' }}
+                                            >
+                                                {sentence}
+                                            </motion.h1>
+                                        )}
+                                        </AnimatePresence>
+                                    </div>
+                                </div>
+                            ))}
                         </div>
+                        
+                        <div className="w-full bg-muted/50 rounded-full h-1.5 mt-16 overflow-hidden border border-accent/20">
+                            <motion.div
+                                className="bg-accent h-full rounded-full"
+                                initial={{ width: '0%' }}
+                                animate={{ width: '100%' }}
+                                transition={{ duration: totalDuration / 1000, ease: 'linear' }}
+                            />
+                        </div>
+
                     </motion.div>
                 )}
             </AnimatePresence>
