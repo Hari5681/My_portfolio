@@ -7,8 +7,9 @@ import { motion, useMotionValue, useSpring, useTransform } from 'framer-motion';
 import { createClient } from '@supabase/supabase-js';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
-import { Loader2, Sparkles } from 'lucide-react';
+import { Loader2 } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
+import Image from 'next/image';
 
 export const dynamic = 'force-dynamic';
 
@@ -154,13 +155,20 @@ export default function VisitorPage() {
                     </div>
 
                     <motion.div
-                        className="w-24 h-24 mx-auto mb-6 rounded-full flex items-center justify-center bg-background/50 border-2 border-accent/30 shadow-lg shadow-accent/10"
+                        className="w-24 h-24 mx-auto mb-6 rounded-full flex items-center justify-center bg-background/50 border-2 border-accent/30 shadow-lg shadow-accent/10 overflow-hidden"
                         style={{ transform: "translateZ(80px)" }}
                         variants={itemVariants}
                         animate={{ y: [0, -10, 0] }}
                         transition={{ duration: 4, repeat: Infinity, ease: 'easeInOut' }}
                     >
-                        <Sparkles className="w-12 h-12 text-accent animate-pulse" />
+                        <Image 
+                            src="https://evfbzgcwjfvkxukdxckj.supabase.co/storage/v1/object/public/hari_portfolio_imAGES/Cute%20Dog.gif" 
+                            alt="Cute Dog" 
+                            width={96}
+                            height={96}
+                            unoptimized
+                            className="object-cover"
+                        />
                     </motion.div>
                     
                     <motion.h1 
@@ -184,7 +192,7 @@ export default function VisitorPage() {
                         variants={itemVariants}
                         style={{ transform: "translateZ(40px)" }}
                     >
-                        <div className="relative w-full group">
+                        <motion.div className="relative w-full group" whileHover={{ scale: 1.03 }} transition={{ type: 'spring', stiffness: 300 }}>
                             <Input
                                 id="visitor-name"
                                 placeholder="Tell the universe who you are"
@@ -194,9 +202,9 @@ export default function VisitorPage() {
                                 autoComplete="name"
                                 disabled={isSubmitting}
                             />
-                        </div>
+                        </motion.div>
                         <motion.div
-                            whileHover={{ scale: 1.05 }}
+                            whileHover={{ scale: 1.05, y: -2 }}
                             whileTap={{ scale: 0.95 }}
                             className="w-full"
                         >
