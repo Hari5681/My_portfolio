@@ -6,27 +6,38 @@ import { useRouter } from 'next/navigation';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Rocket } from 'lucide-react';
 
+const sentences = [
+    "Hello, I’m Hari Krishna".split(""),
+    "Dive into my Universe".split("")
+];
+
 export default function WelcomePage() {
     const router = useRouter();
     const [isMounted, setIsMounted] = useState(false);
+    const [sentenceIndex, setSentenceIndex] = useState(0);
 
     useEffect(() => {
         setIsMounted(true);
+
+        const sentenceTimer = setTimeout(() => {
+            setSentenceIndex(1);
+        }, 2500); // Switch to the second sentence after 2.5s
+
         const redirectTimeout = setTimeout(() => {
             router.push('/');
-        }, 4000); // 4 seconds
+        }, 5500); // Redirect after 5.5s total
 
-        return () => clearTimeout(redirectTimeout);
+        return () => {
+            clearTimeout(sentenceTimer);
+            clearTimeout(redirectTimeout);
+        };
     }, [router]);
-
-    const sentence = "Welcome to My Digital Universe".split("");
 
     const containerVariants = {
         hidden: { opacity: 0 },
         visible: {
             opacity: 1,
             transition: {
-                delay: 0.5,
                 staggerChildren: 0.08,
             },
         },
@@ -100,31 +111,35 @@ export default function WelcomePage() {
                             />
                         </motion.div>
 
-                        <motion.h1
-                            className="text-4xl md:text-5xl font-bold text-center text-transparent bg-clip-text bg-gradient-to-r from-accent via-primary to-accent animate-text-glow"
-                            variants={containerVariants}
-                            initial="hidden"
-                            animate="visible"
-                        >
-                            {sentence.map((char, index) => (
-                                <motion.span key={index} variants={letterVariants}>
-                                    {char === " " ? "\u00A0" : char}
-                                </motion.span>
-                            ))}
-                        </motion.h1>
+                        <AnimatePresence mode="wait">
+                            <motion.h1
+                                key={sentenceIndex}
+                                className="text-4xl md:text-5xl font-bold text-center text-transparent bg-clip-text bg-gradient-to-r from-accent via-primary to-accent animate-text-glow"
+                                variants={containerVariants}
+                                initial="hidden"
+                                animate="visible"
+                                exit={{ opacity: 0, y: -20, transition: { duration: 0.3 } }}
+                            >
+                                {sentences[sentenceIndex].map((char, index) => (
+                                    <motion.span key={index} variants={letterVariants}>
+                                        {char === " " ? "\u00A0" : char}
+                                    </motion.span>
+                                ))}
+                            </motion.h1>
+                        </AnimatePresence>
 
                          <motion.div
                             className="mt-12 w-full max-w-sm"
                             initial={{ opacity: 0 }}
                             animate={{ opacity: 1 }}
-                            transition={{ delay: 2, duration: 0.5 }}
+                            transition={{ delay: 1, duration: 0.5 }}
                          >
                             <div className="h-2 bg-accent/20 rounded-full overflow-hidden relative">
                                 <motion.div
                                     className="h-full bg-accent"
                                     initial={{ width: '0%' }}
                                     animate={{ width: '100%' }}
-                                    transition={{ duration: 4, ease: 'linear' }}
+                                    transition={{ duration: 5.5, ease: 'linear' }}
                                 />
                                 <motion.div
                                     className="absolute top-0 left-0 h-full w-full bg-accent opacity-50"
