@@ -215,7 +215,7 @@ export function ContactSection() {
                     <motion.a href={`/redirect?url=${encodeURIComponent('https://github.com/Hari5681')}`} target="_blank" rel="noopener noreferrer" className="text-muted-foreground hover:text-accent transition-colors" whileHover={{ scale: 1.1, y: -5 }} whileTap={{ scale: 0.95 }}>
                         <Github className="h-7 w-7" />
                     </motion.a>
-                     <motion.a href={`/redirect?url=${encodeURIComponent('https://www.linkedin.com/in/hari5681')}`} target="_blank" rel="noopener noreferrer" className="text-muted-foreground hover:text-accent transition-colors" whileHover={{ scale: 1.1, y: -5 }} whileTap={{ scale: 0.95 }}>
+                     <motion.a href={`/redirect?url=${encodeURIComponent('https://www.linkedin.com/in/hari5681/')}`} target="_blank" rel="noopener noreferrer" className="text-muted-foreground hover:text-accent transition-colors" whileHover={{ scale: 1.1, y: -5 }} whileTap={{ scale: 0.95 }}>
                         <Linkedin className="h-7 w-7" />
                     </motion.a>
                      <motion.a href={`/redirect?url=${encodeURIComponent('https://www.instagram.com/hari.krishna.00?igsh=cmF2cHA1eTE3ZmJw')}`} target="_blank" rel="noopener noreferrer" className="text-muted-foreground hover:text-accent transition-colors" whileHover={{ scale: 1.1, y: -5 }} whileTap={{ scale: 0.95 }}>

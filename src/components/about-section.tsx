@@ -228,7 +228,7 @@ export function AboutSection() {
                <AnimatedSocialButton href="mailto:hari7569871463@gmail.com" ariaLabel="Email">
                   <Mail className="mr-2 h-4 w-4" /> Email
                </AnimatedSocialButton>
-                <AnimatedSocialButton href="https://www.linkedin.com/in/hari5681" isExternal ariaLabel="LinkedIn">
+                <AnimatedSocialButton href="https://www.linkedin.com/in/hari5681/" isExternal ariaLabel="LinkedIn">
                     <Linkedin className="mr-2 h-4 w-4" /> LinkedIn
                 </AnimatedSocialButton>
                 <AnimatedSocialButton href="https://github.com/Hari5681" isExternal ariaLabel="Github">

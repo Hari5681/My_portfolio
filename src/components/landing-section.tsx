@@ -129,7 +129,7 @@ export function LandingSection() {
                                 <motion.a href="mailto:hari7569871463@gmail.com" whileHover={{ scale: 1.1, y: -2 }} className="text-muted-foreground hover:text-accent transition-colors">
                                     <Mail className="w-6 h-6" />
                                 </motion.a>
-                                <motion.a href={`/redirect?url=${encodeURIComponent('https://www.linkedin.com/in/hari5681')}`} target="_blank" rel="noopener noreferrer" whileHover={{ scale: 1.1, y: -2 }} className="text-muted-foreground hover:text-accent transition-colors">
+                                <motion.a href={`/redirect?url=${encodeURIComponent('https://www.linkedin.com/in/hari5681/')}`} target="_blank" rel="noopener noreferrer" whileHover={{ scale: 1.1, y: -2 }} className="text-muted-foreground hover:text-accent transition-colors">
                                     <Linkedin className="w-6 h-6" />
                                 </motion.a>
                                 <motion.a href={`/redirect?url=${encodeURIComponent('https://github.com/Hari5681')}`} target="_blank" rel="noopener noreferrer" whileHover={{ scale: 1.1, y: -2 }} className="text-muted-foreground hover:text-accent transition-colors">
