@@ -15,6 +15,7 @@ export default function WelcomePage() {
     const router = useRouter();
     const [isMounted, setIsMounted] = useState(false);
     const [sentenceIndex, setSentenceIndex] = useState(0);
+    const [progress, setProgress] = useState(0);
 
     useEffect(() => {
         setIsMounted(true);
@@ -27,16 +28,46 @@ export default function WelcomePage() {
             router.push('/');
         }, 5500); // Redirect after 5.5s total
 
+        const progressInterval = setInterval(() => {
+            setProgress(prev => {
+                if (prev >= 100) {
+                    clearInterval(progressInterval);
+                    return 100;
+                }
+                return prev + 1;
+            });
+        }, 50); // Update progress roughly every 50ms
+
         return () => {
             clearTimeout(sentenceTimer);
             clearTimeout(redirectTimeout);
+            clearInterval(progressInterval);
         };
     }, [router]);
 
     const sentenceVariants = {
+        hidden: { opacity: 0 },
+        visible: {
+            opacity: 1,
+            transition: {
+                delay: 0.1,
+                staggerChildren: 0.05,
+            },
+        },
+        exit: { opacity: 0, transition: { duration: 0.3, ease: 'easeIn' } }
+    };
+
+    const letterVariants = {
         hidden: { opacity: 0, y: 20 },
-        visible: { opacity: 1, y: 0, transition: { duration: 0.5, ease: 'easeOut' } },
-        exit: { opacity: 0, y: -20, transition: { duration: 0.3, ease: 'easeIn' } }
+        visible: {
+            opacity: 1,
+            y: 0,
+            transition: {
+                type: 'spring',
+                damping: 12,
+                stiffness: 200,
+            },
+        },
     };
     
     return (
@@ -53,8 +84,8 @@ export default function WelcomePage() {
                                     key={i}
                                     className="absolute rounded-full bg-accent"
                                     initial={{
-                                        x: Math.random() * window.innerWidth,
-                                        y: Math.random() * window.innerHeight,
+                                        x: typeof window !== 'undefined' ? Math.random() * window.innerWidth : 0,
+                                        y: typeof window !== 'undefined' ? Math.random() * window.innerHeight : 0,
                                         scale: 0,
                                         opacity: 0,
                                     }}
@@ -103,12 +134,16 @@ export default function WelcomePage() {
                                 animate="visible"
                                 exit="exit"
                             >
-                                {sentences[sentenceIndex]}
+                                {sentences[sentenceIndex].split("").map((char, index) => (
+                                    <motion.span key={index} variants={letterVariants} className="inline-block">
+                                        {char === " " ? "\u00A0" : char}
+                                    </motion.span>
+                                ))}
                             </motion.h1>
                         </AnimatePresence>
 
                          <motion.div
-                            className="mt-12 w-full max-w-sm"
+                            className="mt-12 w-full max-w-xs"
                             initial={{ opacity: 0 }}
                             animate={{ opacity: 1 }}
                             transition={{ delay: 1, duration: 0.5 }}
@@ -117,15 +152,18 @@ export default function WelcomePage() {
                                 <motion.div
                                     className="h-full bg-accent"
                                     initial={{ width: '0%' }}
-                                    animate={{ width: '100%' }}
-                                    transition={{ duration: 5.5, ease: 'linear' }}
+                                    animate={{ width: `${progress}%` }}
+                                    transition={{ duration: 0.1, ease: 'linear' }}
                                 />
-                                <motion.div
-                                    className="absolute top-0 left-0 h-full w-full bg-accent opacity-50"
-                                    animate={{ scaleX: [1, 1.05, 1] }}
-                                    transition={{ duration: 1, repeat: Infinity, repeatType: "mirror" }}
+                                <motion.div 
+                                    className="absolute top-0 h-full w-4 bg-white/50 blur-md"
+                                    style={{ left: `${progress}%` }}
+                                    transition={{ duration: 0.1, ease: 'linear' }}
                                 />
                             </div>
+                            <motion.p className="text-center text-sm font-mono text-accent/80 mt-2 tracking-widest">
+                                {Math.round(progress)}%
+                            </motion.p>
                         </motion.div>
                     </>
                 )}
