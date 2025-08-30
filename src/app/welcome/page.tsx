@@ -4,171 +4,106 @@
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Rocket } from 'lucide-react';
+import { Check } from 'lucide-react';
+import { cn } from '@/lib/utils';
 
 export default function WelcomePage() {
     const router = useRouter();
     const [isMounted, setIsMounted] = useState(false);
-    const [sentenceIndex, setSentenceIndex] = useState(0);
-    const [progress, setProgress] = useState(0);
+    const [activeStep, setActiveStep] = useState(0);
     const [sentences, setSentences] = useState<string[]>([]);
+    const totalDuration = 6000; // 6 seconds total
 
     useEffect(() => {
         setIsMounted(true);
         const visitorName = localStorage.getItem('visitorName');
         const welcomeSentences = [
-            `Hello, ${visitorName || 'Visitor'}`,
-            "I'm Hari Krishna",
-            "You're now entering my site"
+            `Yo, ${visitorName || 'Visitor'}!`,
+            "I'm Hari",
+            "Hold tight..."
         ];
         setSentences(welcomeSentences);
 
-        const sentenceTimer1 = setTimeout(() => setSentenceIndex(1), 2500);
-        const sentenceTimer2 = setTimeout(() => setSentenceIndex(2), 5000);
+        const stepTimers = [
+            setTimeout(() => setActiveStep(1), 100),
+            setTimeout(() => setActiveStep(2), 2000),
+            setTimeout(() => setActiveStep(3), 4000),
+        ];
 
         const redirectTimeout = setTimeout(() => {
             router.push('/');
-        }, 7500);
+        }, totalDuration);
 
-        const progressInterval = setInterval(() => {
-            setProgress(prev => {
-                if (prev >= 100) {
-                    clearInterval(progressInterval);
-                    return 100;
-                }
-                return prev + (100 / 7000) * 50; // Sync with 7s duration
-            });
-        }, 50);
 
         return () => {
-            clearTimeout(sentenceTimer1);
-            clearTimeout(sentenceTimer2);
+            stepTimers.forEach(clearTimeout);
             clearTimeout(redirectTimeout);
-            clearInterval(progressInterval);
         };
     }, [router]);
-
-    const sentenceVariants = {
-        hidden: { opacity: 0 },
-        visible: {
-            opacity: 1,
-            transition: {
-                delay: 0.1,
-                staggerChildren: 0.08,
-            },
-        },
-        exit: { opacity: 0, transition: { duration: 0.3, ease: 'easeIn' } }
-    };
-
-    const wordVariants = {
-        hidden: { opacity: 0, y: 20 },
-        visible: {
-            opacity: 1,
-            y: 0,
-            transition: {
-                duration: 0.5,
-                ease: 'easeOut'
-            },
-        },
-    };
     
     return (
         <div className="flex flex-col items-center justify-center min-h-screen p-4 relative overflow-hidden bg-background">
-            <AnimatePresence>
+            <div className="absolute inset-0 bg-grid-pattern opacity-10"/>
+             <AnimatePresence>
                 {isMounted && (
-                    <>
-                        {[...Array(100)].map((_, i) => {
-                            const size = Math.random() * 2 + 1;
-                            const duration = Math.random() * 3 + 2;
-                            return (
+                    <motion.div
+                        className="w-full max-w-sm"
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 1 }}
+                        transition={{ duration: 0.5 }}
+                    >
+                        <div className="relative">
+                            {/* The timeline line */}
+                            <div className="absolute left-4 top-0 h-full w-0.5 bg-accent/20 -translate-x-1/2">
                                 <motion.div
-                                    key={i}
-                                    className="absolute rounded-full bg-accent"
-                                    initial={{
-                                        x: typeof window !== 'undefined' ? Math.random() * window.innerWidth : 0,
-                                        y: typeof window !== 'undefined' ? Math.random() * window.innerHeight : 0,
-                                        scale: 0,
-                                        opacity: 0,
-                                    }}
-                                    animate={{
-                                        scale: [0, 1, 0],
-                                        opacity: [0, 1, 0],
-                                    }}
-                                    transition={{
-                                        duration: duration,
-                                        repeat: Infinity,
-                                        delay: Math.random() * 5,
-                                    }}
-                                    style={{
-                                        width: size,
-                                        height: size,
-                                    }}
-                                />
-                            );
-                        })}
-                        
-                        <motion.div
-                            initial={{ scale: 0, opacity: 0, rotate: -180 }}
-                            animate={{ scale: 1, opacity: 1, rotate: 0 }}
-                            transition={{ duration: 1, ease: [0.22, 1, 0.36, 1], delay: 0.2 }}
-                            className="relative mb-8"
-                        >
-                            <motion.div
-                                animate={{ y: [0, -20, 0] }}
-                                transition={{ duration: 3, repeat: Infinity, ease: 'easeInOut' }}
-                            >
-                                <Rocket className="w-24 h-24 text-accent" />
-                            </motion.div>
-                            <motion.div
-                                className="absolute inset-0 rounded-full border-2 border-accent/30"
-                                animate={{ scale: [1, 1.2, 1], opacity: [0, 0.5, 0] }}
-                                transition={{ duration: 3, repeat: Infinity, ease: 'easeInOut' }}
-                            />
-                        </motion.div>
-
-                        <AnimatePresence mode="wait">
-                           {sentences.length > 0 && (
-                                <motion.h1
-                                    key={sentenceIndex}
-                                    className="text-4xl md:text-5xl font-bold text-center text-transparent bg-clip-text bg-gradient-to-r from-accent via-primary to-accent animate-text-glow"
-                                    variants={sentenceVariants}
-                                    initial="hidden"
-                                    animate="visible"
-                                    exit="exit"
-                                >
-                                    {sentences[sentenceIndex].split(" ").map((word, index) => (
-                                        <motion.span key={index} variants={wordVariants} className="inline-block mr-[0.25em]">
-                                            {word}
-                                        </motion.span>
-                                    ))}
-                                </motion.h1>
-                           )}
-                        </AnimatePresence>
-
-                         <motion.div
-                            className="mt-12 w-full max-w-xs"
-                            initial={{ opacity: 0 }}
-                            animate={{ opacity: 1 }}
-                            transition={{ delay: 1, duration: 0.5 }}
-                         >
-                            <div className="h-2 bg-accent/20 rounded-full overflow-hidden relative">
-                                <motion.div
-                                    className="h-full bg-accent"
-                                    initial={{ width: '0%' }}
-                                    animate={{ width: `${progress}%` }}
-                                    transition={{ duration: 0.1, ease: 'linear' }}
-                                />
-                                <motion.div 
-                                    className="absolute top-0 h-full w-4 bg-white/50 blur-md"
-                                    style={{ left: `${progress}%` }}
-                                    transition={{ duration: 0.1, ease: 'linear' }}
+                                    className="h-full w-full bg-accent"
+                                    style={{ originY: 0 }}
+                                    animate={{ scaleY: (activeStep / sentences.length) }}
+                                    transition={{ duration: 1.5, ease: 'easeOut' }}
                                 />
                             </div>
-                            <motion.p className="text-center text-sm font-mono text-accent/80 mt-2 tracking-widest">
-                                {Math.round(progress)}%
-                            </motion.p>
-                        </motion.div>
-                    </>
+
+                            <div className="space-y-16">
+                                {sentences.map((sentence, index) => (
+                                    <div key={index} className="relative flex items-center">
+                                        <div 
+                                            className={cn(
+                                                "absolute left-4 -translate-x-1/2 w-8 h-8 rounded-full border-2 flex items-center justify-center transition-all duration-500",
+                                                activeStep > index ? "bg-accent border-accent" : "bg-background border-accent/30"
+                                            )}
+                                        >
+                                            {activeStep > index && (
+                                                <motion.div
+                                                    initial={{ scale: 0 }}
+                                                    animate={{ scale: 1 }}
+                                                >
+                                                    <Check className="w-5 h-5 text-accent-foreground" />
+                                                </motion.div>
+                                            )}
+                                             {activeStep === index + 1 && (
+                                                <div className="absolute inset-0 rounded-full bg-accent animate-ping"/>
+                                             )}
+                                        </div>
+                                        <div className="pl-12">
+                                            <AnimatePresence>
+                                            {activeStep > index && (
+                                                <motion.h1
+                                                    className="text-3xl md:text-4xl font-bold text-foreground"
+                                                    initial={{ opacity: 0, x: -20 }}
+                                                    animate={{ opacity: 1, x: 0 }}
+                                                    exit={{ opacity: 0 }}
+                                                    transition={{ type: 'spring', stiffness: 100, damping: 20 }}
+                                                >
+                                                    {sentence}
+                                                </motion.h1>
+                                            )}
+                                            </AnimatePresence>
+                                        </div>
+                                    </div>
+                                ))}
+                            </div>
+                        </div>
+                    </motion.div>
                 )}
             </AnimatePresence>
         </div>
