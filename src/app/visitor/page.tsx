@@ -164,7 +164,7 @@ export default function VisitorPage() {
                             whileTap={{ scale: 0.95 }}
                             className="w-full"
                         >
-                            <Button type="submit" size="lg" className="w-full btn-glow animate-pulse-glow-accent text-lg focus-visible:ring-0 focus-visible:ring-offset-0" disabled={isSubmitting}>
+                            <Button type="submit" size="lg" className="w-full btn-glow animate-pulse-glow-accent text-lg focus-visible:ring-0 focus-visible:ring-offset-0" disabled={isSubmitting || !name.trim()}>
                                 {isSubmitting ? <Loader2 className="mr-2 h-5 w-5 animate-spin" /> : 'Let’s Go!'}
                             </Button>
                         </motion.div>
