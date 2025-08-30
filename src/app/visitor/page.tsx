@@ -135,13 +135,13 @@ export default function VisitorPage() {
                         animate={{ y: [0, -10, 0] }}
                         transition={{ duration: 4, repeat: Infinity, ease: 'easeInOut' }}
                     >
-                        <video
-                            src="https://evfbzgcwjfvkxukdxckj.supabase.co/storage/v1/object/public/hari_portfolio_imAGES/Happy%20Halloween.mp4"
-                            autoPlay
-                            loop
-                            muted
-                            playsInline
-                            className="rounded-full object-cover w-full h-full"
+                        <Image
+                            src="https://evfbzgcwjfvkxukdxckj.supabase.co/storage/v1/object/public/hari_portfolio_imAGES/Cool%20chick.gif"
+                            alt="Cool chick gif"
+                            width={128}
+                            height={128}
+                            unoptimized
+                            className="object-contain w-full h-full"
                         />
                     </motion.div>
                     
@@ -157,7 +157,7 @@ export default function VisitorPage() {
                         style={{ transform: "translateZ(40px)" }}
                         variants={itemVariants}
                     >
-                        “No tricks, just treats. Come in and see my creative potions.”
+                        Glad to have you here. Let me know who's visiting.
                     </motion.p>
                     
                     <motion.form 
@@ -183,7 +183,7 @@ export default function VisitorPage() {
                             className="w-full"
                         >
                             <Button type="submit" size="lg" className="w-full btn-glow animate-pulse-glow-accent text-lg" disabled={isSubmitting || !name.trim()}>
-                                {isSubmitting ? <Loader2 className="mr-2 h-5 w-5 animate-spin" /> : 'Enter the Lair'}
+                                {isSubmitting ? <Loader2 className="mr-2 h-5 w-5 animate-spin" /> : 'Explore My Portfolio'}
                             </Button>
                         </motion.div>
                     </motion.form>
