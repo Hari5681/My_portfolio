@@ -10,6 +10,7 @@ import { AboutSection } from '@/components/about-section';
 import { Footer } from '@/components/footer';
 import { Header } from '@/components/header';
 import { CertificatesSection } from '@/components/certificates-section';
+import { RoadmapsPreviewSection } from '@/components/roadmaps-preview-section';
 import { AnimatedSection } from '@/components/animated-section';
 import { motion } from 'framer-motion';
 import { Button } from '@/components/ui/button';
@@ -36,6 +37,9 @@ export default function HomePage() {
         </AnimatedSection>
         <AnimatedSection>
             <CertificatesSection />
+        </AnimatedSection>
+        <AnimatedSection>
+            <RoadmapsPreviewSection />
         </AnimatedSection>
         <AnimatedSection>
             <AboutSection />
