@@ -137,11 +137,17 @@ export function LandingSection() {
                                 </motion.a>
                             </div>
                             {isMobile && (
-                                <Button asChild variant="link" className="mt-4 text-accent animate-text-glow px-0">
-                                    <Link href="/about">
-                                        About Me
-                                    </Link>
-                                </Button>
+                                <motion.div
+                                    whileHover={{ scale: 1.1, y: -2 }}
+                                    whileTap={{ scale: 0.95 }}
+                                    className="mt-4"
+                                >
+                                    <Button asChild variant="link" className="text-accent animate-text-glow px-0">
+                                        <Link href="/about">
+                                            About Me
+                                        </Link>
+                                    </Button>
+                                </motion.div>
                             )}
                         </motion.div>
                     </motion.div>
