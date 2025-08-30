@@ -1,0 +1,20 @@
+# Node.js dependencies
+node_modules/
+npm-debug.log
+yarn-error.log
+
+# Build outputs
+dist/
+build/
+.cache/
+.next/
+out/
+.firebase/
+functions/.next/
+
+# Firebase debug
+firebase-debug.log
+
+# Env files
+.env
+.env.local
