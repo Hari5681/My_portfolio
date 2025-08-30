@@ -44,6 +44,13 @@ export default function WelcomePage() {
     return (
         <div className="flex flex-col items-center justify-center min-h-screen p-4 relative overflow-hidden bg-background">
             <div className="absolute inset-0 bg-grid-pattern opacity-10"/>
+             <motion.div 
+                className="absolute inset-0 z-0 opacity-50"
+                animate={{ scale: [1, 1.2, 1], opacity: [0.2, 0.4, 0.2] }}
+                transition={{ duration: 10, repeat: Infinity, ease: 'easeInOut' }}
+              >
+                  <div className="absolute inset-0 bg-[radial-gradient(ellipse_80%_80%_at_50%_50%,hsl(var(--accent)_/_0.2),transparent_80%)]" />
+              </motion.div>
              <AnimatePresence>
                 {isMounted && (
                     <motion.div
