@@ -190,7 +190,7 @@ export default function VisitorPage() {
                                 placeholder="Tell the universe who you are"
                                 value={name}
                                 onChange={(e) => setName(e.target.value)}
-                                className="h-12 text-base text-center bg-background/50 border-accent/30 placeholder:text-muted-foreground rounded-lg backdrop-blur-sm transition-all duration-300 focus:border-accent focus:shadow-lg focus:shadow-accent/20 input-glow-border"
+                                className="h-12 text-base text-center bg-background/50 border-accent/30 placeholder:text-muted-foreground rounded-lg transition-all duration-300 focus:border-accent focus:shadow-lg focus:shadow-accent/20 input-glow-border"
                                 autoComplete="name"
                                 disabled={isSubmitting}
                             />
