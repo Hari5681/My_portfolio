@@ -155,19 +155,19 @@ export default function VisitorPage() {
                     </div>
 
                     <motion.div
-                        className="w-24 h-24 mx-auto mb-6 flex items-center justify-center"
+                        className="w-32 h-32 mx-auto mb-6 flex items-center justify-center"
                         style={{ transform: "translateZ(80px)" }}
                         variants={itemVariants}
                         animate={{ y: [0, -10, 0] }}
                         transition={{ duration: 4, repeat: Infinity, ease: 'easeInOut' }}
                     >
-                        <Image 
-                            src="https://evfbzgcwjfvkxukdxckj.supabase.co/storage/v1/object/public/hari_portfolio_imAGES/Cute%20Dog.gif" 
-                            alt="Cute Dog" 
-                            width={96}
-                            height={96}
-                            unoptimized
-                            className="object-contain"
+                        <video
+                            src="https://evfbzgcwjfvkxukdxckj.supabase.co/storage/v1/object/public/hari_portfolio_imAGES/Happy%20Halloween.mp4"
+                            autoPlay
+                            loop
+                            muted
+                            playsInline
+                            className="rounded-full object-cover w-full h-full"
                         />
                     </motion.div>
                     
