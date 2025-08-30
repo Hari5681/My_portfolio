@@ -128,23 +128,6 @@ export default function VisitorPage() {
                     variants={itemVariants}
                     style={{ transformStyle: "preserve-d" }}
                 >
-                    <motion.div
-                        className="w-40 h-40 mx-auto mb-6 flex items-center justify-center"
-                        style={{ transform: "translateZ(80px)" }}
-                        variants={itemVariants}
-                        animate={{ y: [0, -10, 0] }}
-                        transition={{ duration: 4, repeat: Infinity, ease: 'easeInOut' }}
-                    >
-                        <Image
-                            src="https://evfbzgcwjfvkxukdxckj.supabase.co/storage/v1/object/public/hari_portfolio_imAGES/Cat%20playing%20animation.gif"
-                            alt="Cat playing animation gif"
-                            width={160}
-                            height={160}
-                            unoptimized
-                            className="object-contain w-full h-full"
-                        />
-                    </motion.div>
-                    
                     <motion.h1 
                         className="text-4xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-accent via-primary to-accent animate-text-glow"
                         style={{ transform: "translateZ(50px)" }}
@@ -159,6 +142,23 @@ export default function VisitorPage() {
                     >
                         Glad to have you here. Let me know who's visiting.
                     </motion.p>
+
+                    <motion.div
+                        className="w-40 h-40 mx-auto mt-6 flex items-center justify-center"
+                        style={{ transform: "translateZ(80px)" }}
+                        variants={itemVariants}
+                        animate={{ y: [0, -10, 0] }}
+                        transition={{ duration: 4, repeat: Infinity, ease: 'easeInOut' }}
+                    >
+                        <Image
+                            src="https://evfbzgcwjfvkxukdxckj.supabase.co/storage/v1/object/public/hari_portfolio_imAGES/Cat%20playing%20animation.gif"
+                            alt="Cat playing animation gif"
+                            width={160}
+                            height={160}
+                            unoptimized
+                            className="object-contain w-full h-full"
+                        />
+                    </motion.div>
                     
                     <motion.form 
                         onSubmit={handleSubmit} 
