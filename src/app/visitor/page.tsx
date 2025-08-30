@@ -52,9 +52,11 @@ export default function VisitorPage() {
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
         const visitorName = name.trim();
+        
+        localStorage.setItem('visitorName', visitorName); // Save name regardless
+        localStorage.setItem('hasVisitedPortfolio', 'true');
+
         if (!visitorName) {
-            // If name is not entered, just proceed
-            localStorage.setItem('hasVisitedPortfolio', 'true');
             router.push('/welcome');
             return;
         }
@@ -67,7 +69,6 @@ export default function VisitorPage() {
 
             if (error) throw error;
             
-            localStorage.setItem('hasVisitedPortfolio', 'true');
             toast({
               title: `Welcome, ${visitorName}!`,
               description: "So glad to have you here. Enjoy the journey.",
@@ -82,7 +83,6 @@ export default function VisitorPage() {
                 title: "Submission Failed",
                 description: `Could not save your name. Error: ${error.message}`,
             });
-            localStorage.setItem('hasVisitedPortfolio', 'true');
             setTimeout(() => router.push('/welcome'), 1500);
         }
     };

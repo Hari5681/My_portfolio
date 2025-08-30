@@ -6,27 +6,29 @@ import { useRouter } from 'next/navigation';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Rocket } from 'lucide-react';
 
-const sentences = [
-    "Hello, I’m Hari Krishna",
-    "Dive into my Universe"
-];
-
 export default function WelcomePage() {
     const router = useRouter();
     const [isMounted, setIsMounted] = useState(false);
     const [sentenceIndex, setSentenceIndex] = useState(0);
     const [progress, setProgress] = useState(0);
+    const [sentences, setSentences] = useState<string[]>([]);
 
     useEffect(() => {
         setIsMounted(true);
+        const visitorName = localStorage.getItem('visitorName');
+        const welcomeSentences = [
+            `Hello, ${visitorName || 'Visitor'}`,
+            "I'm Hari Krishna",
+            "You're now entering my site"
+        ];
+        setSentences(welcomeSentences);
 
-        const sentenceTimer = setTimeout(() => {
-            setSentenceIndex(1);
-        }, 2500); // Switch to the second sentence after 2.5s
+        const sentenceTimer1 = setTimeout(() => setSentenceIndex(1), 2500);
+        const sentenceTimer2 = setTimeout(() => setSentenceIndex(2), 5000);
 
         const redirectTimeout = setTimeout(() => {
             router.push('/');
-        }, 5500); // Redirect after 5.5s total
+        }, 7500);
 
         const progressInterval = setInterval(() => {
             setProgress(prev => {
@@ -34,12 +36,13 @@ export default function WelcomePage() {
                     clearInterval(progressInterval);
                     return 100;
                 }
-                return prev + 1;
+                return prev + (100 / 7000) * 50; // Sync with 7s duration
             });
-        }, 50); // Update progress roughly every 50ms
+        }, 50);
 
         return () => {
-            clearTimeout(sentenceTimer);
+            clearTimeout(sentenceTimer1);
+            clearTimeout(sentenceTimer2);
             clearTimeout(redirectTimeout);
             clearInterval(progressInterval);
         };
@@ -51,7 +54,7 @@ export default function WelcomePage() {
             opacity: 1,
             transition: {
                 delay: 0.1,
-                staggerChildren: 0.08, // Stagger words
+                staggerChildren: 0.08,
             },
         },
         exit: { opacity: 0, transition: { duration: 0.3, ease: 'easeIn' } }
@@ -74,7 +77,6 @@ export default function WelcomePage() {
             <AnimatePresence>
                 {isMounted && (
                     <>
-                        {/* Starfield background */}
                         {[...Array(100)].map((_, i) => {
                             const size = Math.random() * 2 + 1;
                             const duration = Math.random() * 3 + 2;
@@ -125,20 +127,22 @@ export default function WelcomePage() {
                         </motion.div>
 
                         <AnimatePresence mode="wait">
-                            <motion.h1
-                                key={sentenceIndex}
-                                className="text-4xl md:text-5xl font-bold text-center text-transparent bg-clip-text bg-gradient-to-r from-accent via-primary to-accent animate-text-glow"
-                                variants={sentenceVariants}
-                                initial="hidden"
-                                animate="visible"
-                                exit="exit"
-                            >
-                                {sentences[sentenceIndex].split(" ").map((word, index) => (
-                                    <motion.span key={index} variants={wordVariants} className="inline-block mr-[0.25em]">
-                                        {word}
-                                    </motion.span>
-                                ))}
-                            </motion.h1>
+                           {sentences.length > 0 && (
+                                <motion.h1
+                                    key={sentenceIndex}
+                                    className="text-4xl md:text-5xl font-bold text-center text-transparent bg-clip-text bg-gradient-to-r from-accent via-primary to-accent animate-text-glow"
+                                    variants={sentenceVariants}
+                                    initial="hidden"
+                                    animate="visible"
+                                    exit="exit"
+                                >
+                                    {sentences[sentenceIndex].split(" ").map((word, index) => (
+                                        <motion.span key={index} variants={wordVariants} className="inline-block mr-[0.25em]">
+                                            {word}
+                                        </motion.span>
+                                    ))}
+                                </motion.h1>
+                           )}
                         </AnimatePresence>
 
                          <motion.div
