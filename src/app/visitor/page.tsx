@@ -3,7 +3,7 @@
 
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
-import { motion, useMotionValue, useSpring, useTransform } from 'framer-motion';
+import { motion } from 'framer-motion';
 import { createClient } from '@supabase/supabase-js';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
@@ -49,30 +49,15 @@ export default function VisitorPage() {
     const router = useRouter();
     const { toast } = useToast();
 
-    const x = useMotionValue(0);
-    const y = useMotionValue(0);
-
-    const mouseX = useSpring(x, { stiffness: 300, damping: 30 });
-    const mouseY = useSpring(y, { stiffness: 300, damping: 30 });
-
-    const rotateX = useTransform(mouseY, [-0.5, 0.5], ["12deg", "-12deg"]);
-    const rotateY = useTransform(mouseX, [-0.5, 0.5], ["-12deg", "12deg"]);
-
-    const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
-        const rect = e.currentTarget.getBoundingClientRect();
-        x.set((e.clientX - rect.left) / rect.width - 0.5);
-        y.set((e.clientY - rect.top) / rect.height - 0.5);
-    };
-
-    const handleMouseLeave = () => {
-        x.set(0);
-        y.set(0);
-    };
-
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
         const visitorName = name.trim();
-        if (!visitorName) return;
+        if (!visitorName) {
+            // If name is not entered, just proceed
+            localStorage.setItem('hasVisitedPortfolio', 'true');
+            router.push('/welcome');
+            return;
+        }
 
         setIsSubmitting(true);
         try {
@@ -88,7 +73,7 @@ export default function VisitorPage() {
               description: "So glad to have you here. Enjoy the journey.",
             });
             
-            setTimeout(() => router.push('/'), 500);
+            setTimeout(() => router.push('/welcome'), 500);
 
         } catch (error: any) {
             console.error("Error saving name to Supabase:", error);
@@ -98,7 +83,7 @@ export default function VisitorPage() {
                 description: `Could not save your name. Error: ${error.message}`,
             });
             localStorage.setItem('hasVisitedPortfolio', 'true');
-            setTimeout(() => router.push('/'), 1500);
+            setTimeout(() => router.push('/welcome'), 1500);
         }
     };
 
@@ -107,34 +92,26 @@ export default function VisitorPage() {
              <div className="absolute inset-0 bg-grid-pattern-animated -z-20" />
               <motion.div 
                 className="absolute inset-0 z-0 opacity-50"
-                animate={{ scale: [1, 1.2, 1], opacity: [0.5, 0.8, 0.5] }}
-                transition={{ duration: 15, repeat: Infinity, ease: 'easeInOut' }}
               >
                   <div className="absolute inset-0 bg-[radial-gradient(ellipse_80%_80%_at_50%_50%,hsl(var(--accent)_/_0.2),transparent_80%)]" />
               </motion.div>
 
             <motion.div
-                className="w-full max-w-md z-10 text-center perspective-1000"
+                className="w-full max-w-md z-10 text-center"
                 variants={containerVariants}
                 initial="hidden"
                 animate="visible"
-                onMouseMove={handleMouseMove}
-                onMouseLeave={handleMouseLeave}
             >
                 <motion.div 
                     className="p-8 bg-card/60 backdrop-blur-xl rounded-2xl animate-breathing-border relative"
-                    style={{ rotateX, rotateY, transformStyle: "preserve-d" }}
                 >
                     <motion.div
                         className="w-40 h-40 mx-auto mb-8 flex items-center justify-center"
-                        style={{ transform: "translateZ(80px)" }}
                         variants={itemVariants}
                     >
                         <div className="relative w-full h-full">
                             <motion.div
                                 className="absolute inset-0 border-2 border-accent/20 rounded-full"
-                                animate={{ rotate: 360, scale: [1, 0.9, 1] }}
-                                transition={{ duration: 20, repeat: Infinity, ease: 'linear' }}
                             />
                             <motion.div
                                 className="absolute inset-4 border-t-2 border-t-primary rounded-full"
@@ -143,13 +120,9 @@ export default function VisitorPage() {
                             />
                             <motion.div
                                 className="absolute inset-0 flex items-center justify-center"
-                                animate={{ y: [0, -10, 0] }}
-                                transition={{ duration: 4, repeat: Infinity, ease: 'easeInOut' }}
                             >
                                 <motion.div
                                     className="w-16 h-16 bg-accent/10 rounded-full flex items-center justify-center"
-                                    animate={{ scale: [1, 1.2, 1] }}
-                                    transition={{ duration: 1.5, repeat: Infinity, ease: 'easeInOut' }}
                                 >
                                     <Sparkles className="w-8 h-8 text-accent animate-pulse" />
                                 </motion.div>
@@ -159,14 +132,12 @@ export default function VisitorPage() {
 
                     <motion.h1 
                         className="text-4xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-accent via-primary to-accent animate-text-glow"
-                        style={{ transform: "translateZ(50px)" }}
                         variants={itemVariants}
                     >
                         WELCOME
                     </motion.h1>
                     <motion.p
                         className="mt-4 text-muted-foreground"
-                        style={{ transform: "translateZ(40px)" }}
                         variants={itemVariants}
                     >
                         Glad to have you here. Let me know who's visiting.
@@ -175,13 +146,12 @@ export default function VisitorPage() {
                     <motion.form 
                         onSubmit={handleSubmit} 
                         className="mt-8 space-y-6 flex flex-col items-center"
-                        style={{ transform: "translateZ(40px)" }}
                         variants={itemVariants}
                     >
                         <motion.div className="relative w-full group" whileHover={{ scale: 1.03 }} transition={{ type: 'spring', stiffness: 300 }}>
                             <Input
                                 id="visitor-name"
-                                placeholder="What should I call you, visitor?"
+                                placeholder="What should I call you? (Optional)"
                                 value={name}
                                 onChange={(e) => setName(e.target.value)}
                                 className="h-12 text-base text-center bg-background/50 border-accent/30 placeholder:text-muted-foreground rounded-lg transition-all duration-300 focus:border-accent focus:shadow-lg focus:shadow-accent/20 input-glow-border"
@@ -194,8 +164,8 @@ export default function VisitorPage() {
                             whileTap={{ scale: 0.95 }}
                             className="w-full"
                         >
-                            <Button type="submit" size="lg" className="w-full btn-glow animate-pulse-glow-accent text-lg" disabled={isSubmitting || !name.trim()}>
-                                {isSubmitting ? <Loader2 className="mr-2 h-5 w-5 animate-spin" /> : 'Explore My Portfolio'}
+                            <Button type="submit" size="lg" className="w-full btn-glow animate-pulse-glow-accent text-lg" disabled={isSubmitting}>
+                                {isSubmitting ? <Loader2 className="mr-2 h-5 w-5 animate-spin" /> : 'Dive into my Universe'}
                             </Button>
                         </motion.div>
                     </motion.form>

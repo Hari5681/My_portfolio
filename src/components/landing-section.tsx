@@ -4,7 +4,7 @@
 import { motion } from "framer-motion";
 import { Button } from "./ui/button";
 import Link from "next/link";
-import { ArrowRight, Github, Linkedin, Mail } from "lucide-react";
+import { ArrowRight, Github, Linkedin, Mail, ChevronsDown } from "lucide-react";
 import Image from "next/image";
 import { useIsMobile } from "@/hooks/use-mobile";
 
@@ -189,6 +189,14 @@ export function LandingSection() {
                     </motion.div>
                 </div>
             </div>
+            <motion.div
+              className="absolute bottom-10 left-1/2 -translate-x-1/2"
+              initial={{ opacity: 0, y: 0 }}
+              animate={{ opacity: 1, y: 10 }}
+              transition={{ delay: 1.5, duration: 1, repeat: Infinity, repeatType: "mirror", ease: "easeInOut" }}
+            >
+              <ChevronsDown className="w-8 h-8 text-accent/50" />
+            </motion.div>
         </section>
     );
 }
