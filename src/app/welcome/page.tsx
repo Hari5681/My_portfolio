@@ -19,7 +19,7 @@ export default function WelcomePage() {
         return () => clearTimeout(redirectTimeout);
     }, [router]);
 
-    const sentence = "Dive into my Universe".split("");
+    const sentence = "Welcome to My Digital Universe".split("");
 
     const containerVariants = {
         hidden: { opacity: 0 },
