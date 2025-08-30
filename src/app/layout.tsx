@@ -12,9 +12,9 @@ export const metadata: Metadata = {
   title: "Hari Krishna's Portfolio",
   description: "Welcome to my personal portfolio. Explore my projects, skills, and experiences in web development and AI.",
   icons: {
-    icon: "/images/fovcon.png",
-    shortcut: "/images/fovcon.png",
-    apple: "/images/fovcon.png",
+    icon: "/images/fovcon.png?v=2",
+    shortcut: "/images/fovcon.png?v=2",
+    apple: "/images/fovcon.png?v=2",
   },
   openGraph: {
     title: "Hari Krishna's Portfolio",
