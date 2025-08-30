@@ -136,8 +136,8 @@ export default function VisitorPage() {
                         transition={{ duration: 4, repeat: Infinity, ease: 'easeInOut' }}
                     >
                         <Image
-                            src="https://evfbzgcwjfvkxukdxckj.supabase.co/storage/v1/object/public/hari_portfolio_imAGES/Cool%20chick.gif"
-                            alt="Cool chick gif"
+                            src="https://evfbzgcwjfvkxukdxckj.supabase.co/storage/v1/object/public/hari_portfolio_imAGES/Cat%20playing%20animation.gif"
+                            alt="Cat playing animation gif"
                             width={128}
                             height={128}
                             unoptimized
