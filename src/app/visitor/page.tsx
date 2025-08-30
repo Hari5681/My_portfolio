@@ -44,25 +44,6 @@ const itemVariants = {
     },
 };
 
-const Sparkle = ({ size, x, y, delay }) => (
-    <motion.div
-      className="absolute rounded-full bg-accent"
-      initial={{ scale: 0, opacity: 0, x, y }}
-      animate={{ scale: [0, 1, 0], opacity: [0, 1, 0] }}
-      transition={{
-        duration: 1.5,
-        repeat: Infinity,
-        repeatType: "loop",
-        ease: "easeInOut",
-        delay,
-      }}
-      style={{
-        width: size,
-        height: size,
-      }}
-    />
-);
-
 export default function VisitorPage() {
     const [name, setName] = useState('');
     const [isSubmitting, setIsSubmitting] = useState(false);
@@ -147,13 +128,6 @@ export default function VisitorPage() {
                     variants={itemVariants}
                     style={{ transformStyle: "preserve-d" }}
                 >
-                    <div className="absolute inset-0">
-                        <Sparkle size={4} x="10%" y="20%" delay={0} />
-                        <Sparkle size={2} x="80%" y="10%" delay={0.2} />
-                        <Sparkle size={3} x="90%" y="85%" delay={0.4} />
-                        <Sparkle size={4} x="5%" y="70%" delay={0.6} />
-                    </div>
-
                     <motion.div
                         className="w-32 h-32 mx-auto mb-6 flex items-center justify-center"
                         style={{ transform: "translateZ(80px)" }}
@@ -183,7 +157,7 @@ export default function VisitorPage() {
                         style={{ transform: "translateZ(40px)" }}
                         variants={itemVariants}
                     >
-                        “Dive into my universe — and explore the galaxies of creativity within.”
+                        “No tricks, just treats. Come in and see my creative potions.”
                     </motion.p>
                     
                     <motion.form 
@@ -195,7 +169,7 @@ export default function VisitorPage() {
                         <motion.div className="relative w-full group" whileHover={{ scale: 1.03 }} transition={{ type: 'spring', stiffness: 300 }}>
                             <Input
                                 id="visitor-name"
-                                placeholder="Tell the universe who you are"
+                                placeholder="What should I call you, visitor?"
                                 value={name}
                                 onChange={(e) => setName(e.target.value)}
                                 className="h-12 text-base text-center bg-background/50 border-accent/30 placeholder:text-muted-foreground rounded-lg transition-all duration-300 focus:border-accent focus:shadow-lg focus:shadow-accent/20 input-glow-border"
@@ -209,7 +183,7 @@ export default function VisitorPage() {
                             className="w-full"
                         >
                             <Button type="submit" size="lg" className="w-full btn-glow animate-pulse-glow-accent text-lg" disabled={isSubmitting || !name.trim()}>
-                                {isSubmitting ? <Loader2 className="mr-2 h-5 w-5 animate-spin" /> : 'Unfold the Story'}
+                                {isSubmitting ? <Loader2 className="mr-2 h-5 w-5 animate-spin" /> : 'Enter the Lair'}
                             </Button>
                         </motion.div>
                     </motion.form>
