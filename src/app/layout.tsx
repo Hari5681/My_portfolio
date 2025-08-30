@@ -11,6 +11,9 @@ export const metadata: Metadata = {
   metadataBase: new URL("https://hariportfolio.xyz"),
   title: "Hari Krishna's Portfolio",
   description: "Welcome to my personal portfolio. Explore my projects, skills, and experiences in web development and AI.",
+  icons: {
+    icon: "/images/fovcon.png",
+  },
   openGraph: {
     title: "Hari Krishna's Portfolio",
     description: "A showcase of my journey in technology, from web development to AI.",
