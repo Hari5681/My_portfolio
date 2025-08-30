@@ -95,7 +95,7 @@ export function LandingSection() {
                         </motion.h1>
 
                         <motion.h2
-                            className="text-2xl md:text-3xl text-foreground font-bold"
+                            className="text-2xl md:text-3xl text-accent font-bold"
                             variants={itemVariants}
                         >
                             Building with Kotlin
